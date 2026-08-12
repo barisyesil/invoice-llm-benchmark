@@ -1,0 +1,375 @@
+{
+  "_readme": [
+    "Test setinin referans (ground truth) degerleri. Anahtar = testset/images/ altindaki DOSYA ADI.",
+    "Yeni bir ornek eklemek icin: gorseli testset/images/ icine koyun ve buraya ayni dosya adiyla bir kayit ekleyin.",
+    "Bir alan belgede GERCEKTEN YOKSA null yazin. null alanlar dogruluk skoruna girmez;",
+    "bunun yerine 'uydurma' metriginde olculur (model bos birakmali, deger uretirse halusinasyon sayilir).",
+    "'alternatifler' opsiyoneldir: bir alan icin kabul edilebilir diger yazimlari listeler.",
+    "'not' sadece insan icindir, karsilastirmada kullanilmaz.",
+    "'aciklama' PUANLANMAZ (bkz. src/lib/schema.ts UNSCORED_FIELDS). Buradaki deger sadece",
+    "insanin belgeyi hatirlamasi icin ornek bir ozettir; model farkli yazarsa hata sayilmaz."
+  ],
+
+  "alanlar": ["tarih", "fatura_no", "sirket_adi", "toplam_tutar", "tur", "aciklama"],
+
+  "items": {
+    "market-01.jpeg": {
+      "kategori": "market",
+      "not": "Metro Grosmarket banka slibi. Urun satiri yok, sadece kart islemi. Fatura/fis numarasi YOK — sadece terminal (T), onay ve referans numaralari var.",
+      "tarih": "2026-04-10",
+      "fatura_no": null,
+      "sirket_adi": "METRO GROSMARKET",
+      "toplam_tutar": 180.9,
+      "tur": "POS Slip",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": [
+          "METRO GROSMARKET-ESKİŞEHİR-STANDART",
+          "METRO GROSMARKET ESKİŞEHİR",
+          "Metro Grosmarket Bakırköy Alışveriş Hiz."
+        ]
+      }
+    },
+
+    "market-02.jpeg": {
+      "kategori": "market",
+      "not": "BIM e-Arsiv Fatura. Yan yatmis (90 derece dondurulmus) gorsel. Odenecek KDV Dahil Tutar = 162,00.",
+      "tarih": "2026-07-21",
+      "fatura_no": "T072026126014393",
+      "sirket_adi": "BİM BİRLEŞİK MAĞAZALAR A.Ş.",
+      "toplam_tutar": 162.0,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["BIM BIRLESIK MAGAZALAR A.S.", "BİM BİRLEŞİK MAĞAZALAR"]
+      }
+    },
+
+    "market-03.jpeg": {
+      "kategori": "market",
+      "not": "A101 bilgi fisi ama uzerinde 'TUR: E-ARSIV FATURA' yaziyor. Yan yatmis. Belge No 20 haneli.",
+      "tarih": "2026-07-21",
+      "fatura_no": "15508012107623630193",
+      "sirket_adi": "A101 YENİ MAĞAZACILIK A.Ş.",
+      "toplam_tutar": 316.5,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "fatura_no": ["0193"],
+        "sirket_adi": ["A101 YENI MAGAZACILIK A.S.", "A101"]
+      }
+    },
+
+    "market-04.jpeg": {
+      "kategori": "market",
+      "not": "Keskin Gida yazarkasa fisi. Cok burusuk, egik ve lekeli — en zor ornek. Fis No 0037.",
+      "tarih": "2026-05-23",
+      "fatura_no": "0037",
+      "sirket_adi": "KESKİN GIDA LTD. ŞTİ.",
+      "toplam_tutar": 123.88,
+      "tur": "Market Fişi",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["KESKIN GIDA LTD STI", "Keskin Market", "KESKİN GIDA"]
+      }
+    },
+
+    "market-05.jpeg": {
+      "kategori": "market",
+      "not": "Cagdas Market yazarkasa fisi. Yan yatmis, ust kisim kismen kesik. Fis No 0450.",
+      "tarih": "2025-12-25",
+      "fatura_no": "0450",
+      "sirket_adi": "ÇAĞDAŞ İHT. GD. MAD. İNŞ. TİC. LTD. ŞTİ.",
+      "toplam_tutar": 146.18,
+      "tur": "Market Fişi",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": [
+          "CAGDAS IHT GD MAD INS TIC LTD STI",
+          "ÇAĞDAŞ MARKET",
+          "Çağdaş Market Esk. Tunalı Ş"
+        ]
+      }
+    },
+
+    "market-06.jpeg": {
+      "kategori": "market",
+      "not": "BIM e-Arsiv Fatura, yan yatmis. Odenecek KDV Dahil Tutar = 587,80.",
+      "tarih": "2026-08-02",
+      "fatura_no": "T082026011338734",
+      "sirket_adi": "BİM BİRLEŞİK MAĞAZALAR A.Ş.",
+      "toplam_tutar": 587.8,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["BIM BIRLESIK MAGAZALAR A.S.", "BİM BİRLEŞİK MAĞAZALAR"]
+      }
+    },
+
+    "market-07.jpeg": {
+      "kategori": "market",
+      "not": "A101 e-Arsiv Fatura, duz cekilmis ama burusuk. Belge No 20 haneli. Odenecek Tutar = 184,50.",
+      "tarih": "2026-04-09",
+      "fatura_no": "20061010260409131945",
+      "sirket_adi": "A101 YENİ MAĞAZACILIK A.Ş.",
+      "toplam_tutar": 184.5,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["A101 YENI MAGAZACILIK A.S.", "A101"]
+      }
+    },
+
+    "web-01.png": {
+      "kategori": "web",
+      "not": "Proforma fatura sablonu. Satici 'Cagla Ozbay', alici 'Erkan Alagoz' — model aliciyi yazarsa hata.",
+      "tarih": "2025-12-12",
+      "fatura_no": "PF-004",
+      "sirket_adi": "Çağla Özbay",
+      "toplam_tutar": 1764,
+      "tur": "Proforma Fatura",
+      "aciklama": "Danışmanlık",
+      "alternatifler": {
+        "aciklama": ["Proforma Fatura - Danışmanlık"]
+      }
+    },
+
+    "web-02.png": {
+      "kategori": "web",
+      "not": "Tek kalemli proforma. Aciklama alani net: 'Dugun Cekimi'.",
+      "tarih": "2027-12-06",
+      "fatura_no": "BK-2027-001",
+      "sirket_adi": "Baki Yenilmez Fotoğrafçılık",
+      "toplam_tutar": 3780,
+      "tur": "Proforma Fatura",
+      "aciklama": "Düğün Çekimi",
+      "alternatifler": {
+        "sirket_adi": ["Baki Yenilmez"]
+      }
+    },
+
+    "web-03.png": {
+      "kategori": "web",
+      "not": "3 kalemli proforma -> aciklama bos olmali. Fatura No PRO-2024/001, tarih 04/12/2025.",
+      "tarih": "2025-12-04",
+      "fatura_no": "PRO-2024/001",
+      "sirket_adi": "CBE Moda Tekstil San. ve Tic. Ltd. Şti.",
+      "toplam_tutar": 27730,
+      "tur": "Proforma Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["CBE MODA", "CBE Moda Tekstil"]
+      }
+    },
+
+    "web-04.png": {
+      "kategori": "web",
+      "not": "2 kalemli proforma -> aciklama bos. Tarih '06/8/2025' seklinde tek haneli ay ile yazilmis.",
+      "tarih": "2025-08-06",
+      "fatura_no": "PRO-2024/004",
+      "sirket_adi": "Özgür Emlak Danışmanlığı",
+      "toplam_tutar": 10000,
+      "tur": "Proforma Fatura",
+      "aciklama": null
+    },
+
+    "web-05.png": {
+      "kategori": "web",
+      "not": "Satici 'Sarigol Otel' (logo/ust bilgi), alici 'Deniz Bardakci ve Ortaklari' (govde basligi) — kafa karistirici, model aliciyi yazabilir.",
+      "tarih": "2025-09-05",
+      "fatura_no": "12345",
+      "sirket_adi": "Sarıgöl Otel",
+      "toplam_tutar": 492,
+      "tur": "Fatura",
+      "aciklama": null
+    },
+
+    "web-06.png": {
+      "kategori": "web",
+      "not": "Teklif belgesi. Fatura/teklif NUMARASI YOK — model uydurmamali. Toplam iskonto sonrasi 20.000.",
+      "tarih": "2023-09-17",
+      "fatura_no": null,
+      "sirket_adi": "Yaratı Döngü Sanat Stüdyosu",
+      "toplam_tutar": 20000,
+      "tur": "Teklif",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["yaratı döngü", "Yaratı Döngü"],
+        "tur": ["Proforma Fatura"]
+      }
+    },
+
+    "web-07.png": {
+      "kategori": "web",
+      "not": "Alici alani ('SAYIN') bos birakilmis. Toplam iskonto sonrasi 10.250 TL.",
+      "tarih": "2024-12-31",
+      "fatura_no": "003",
+      "sirket_adi": "Kayalı Şirketler Grubu",
+      "toplam_tutar": 10250,
+      "tur": "Fatura",
+      "aciklama": null
+    },
+
+    "web-08.png": {
+      "kategori": "web",
+      "not": "Proforma. web-09 ile AYNI fatura numarasina (PF-2024-001) sahip — farkli firmalar, karistirmayi test eder.",
+      "tarih": "2024-11-25",
+      "fatura_no": "PF-2024-001",
+      "sirket_adi": "Aylin Dağdelen İç Mimarlık",
+      "toplam_tutar": 31600,
+      "tur": "Proforma Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["Aylin Dağdelen"]
+      }
+    },
+
+    "web-09.png": {
+      "kategori": "web",
+      "not": "Dokuyan Tekstil proforma. Belgede IKI 'Gonderen (Satici)' blogu var (Dokuyan Tekstil ve Briz Import Ltd) — ilki dogru.",
+      "tarih": "2024-11-25",
+      "fatura_no": "PF-2024-001",
+      "sirket_adi": "Dokuyan Tekstil",
+      "toplam_tutar": 91600,
+      "tur": "Proforma Fatura",
+      "aciklama": null,
+      "alternatifler": {
+        "sirket_adi": ["Dokuyan"]
+      }
+    },
+
+    "web-10.png": {
+      "kategori": "web",
+      "not": "Bos sablon: 'Tarih:' ve 'Fatura No:' etiketleri var ama KARSILARI BOS. Model deger uydurursa halusinasyon.",
+      "tarih": null,
+      "fatura_no": null,
+      "sirket_adi": "Eda Güneş",
+      "toplam_tutar": 3200,
+      "tur": "Fatura",
+      "aciklama": null
+    },
+
+    "efatura-01.png": {
+      "kategori": "e-fatura",
+      "not": "GIB temel senaryo e-Fatura ornegi. Senaryo: TEMELFATURA. Satici ust soldaki adres blogu (AYGUNSAN), logo baska firmaya ait (Keyveni) — kafa karistirici. 9 kalem stok. Odenecek Tutar 1.520.813,50.",
+      "tarih": "2014-04-09",
+      "fatura_no": "FYS2014000000011",
+      "sirket_adi": "AYGÜNSAN DEMİR ÇELİK",
+      "toplam_tutar": 1520813.5,
+      "tur": "e-Fatura",
+      "aciklama": "9 kalem stok satışı",
+      "alternatifler": {
+        "sirket_adi": [
+          "AYGÜNSAN DEMİR ÇELİK VE SANAYİ",
+          "AYGUNSAN DEMIR CELIK VE",
+          "Keyveni Kurumsal Hazır Yemek",
+          "Keyveni"
+        ],
+        "tur": ["Fatura"]
+      }
+    },
+
+    "efatura-02.png": {
+      "kategori": "e-fatura",
+      "not": "GIB ticari senaryo e-Fatura. Senaryo: TICARIFATURA. Satici sag ustteki AKTIF BILGI ISLEM, alici 'SAYIN' altindaki TATIL TURIZM. 10 kalem konaklama. Odenecek Tutar 1.504,00.",
+      "tarih": "2013-10-07",
+      "fatura_no": "FYS2013000000004",
+      "sirket_adi": "AKTİF BİLGİ İŞLEM SAN.TİC.LTD.ŞTİ",
+      "toplam_tutar": 1504.0,
+      "tur": "e-Fatura",
+      "aciklama": "Otel konaklama hizmeti",
+      "alternatifler": {
+        "sirket_adi": ["AKTIF BILGI ISLEM", "Mod Hotel Software", "AKTİF BİLGİ İŞLEM"],
+        "tur": ["Fatura"]
+      }
+    },
+
+    "efatura-03.png": {
+      "kategori": "e-fatura",
+      "not": "E-belge goruntuleyici uygulamasindan ekran goruntusu — pencere cercevesi ve dugmeler belge disi gurultu. Alici bilgileri maskeli. Tek kalem CIHAZ-1, Odenecek Tutar 60.000,00.",
+      "tarih": "2024-06-12",
+      "fatura_no": "AKA2024000000001",
+      "sirket_adi": "Netsim Yazılım A.Ş",
+      "toplam_tutar": 60000.0,
+      "tur": "e-Fatura",
+      "aciklama": "Cihaz satışı",
+      "alternatifler": {
+        "sirket_adi": ["Netsim Yazılım", "NETSIM YAZILIM A.S"],
+        "tur": ["Fatura"]
+      }
+    },
+
+    "efatura-04.png": {
+      "kategori": "e-fatura",
+      "not": "e-Arsiv Fatura sablonu. 'Fatura No' etiketi var ama KARSISI BOS — model numara uydurursa halusinasyon. Duzenleme Tarihi 28-04-2022, Odenecek Tutar 2,36 (cok kucuk tutar testi).",
+      "tarih": "2022-04-28",
+      "fatura_no": null,
+      "sirket_adi": "FATURA TASARIM BİLİŞİM ŞİRKETİ",
+      "toplam_tutar": 2.36,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": "2 kalem deneme ürünü",
+      "alternatifler": {
+        "sirket_adi": ["Fatura Tasarım", "FATURA TASARIM BILISIM SIRKETI"]
+      }
+    },
+
+    "efatura-05.jpg": {
+      "kategori": "e-fatura",
+      "not": "Sengonul Tavukculuk e-Arsiv Fatura. Irsaliye No fatura numarasiyla AYNI (BC72023000001051) — dikkat dagitici. Tek kalem taze bonfile. Odenecek Tutar 2.092,66.",
+      "tarih": "2023-11-10",
+      "fatura_no": "BC72023000001051",
+      "sirket_adi": "ŞENGÖNÜL TAVUKÇULUK GIDA SAN.TİC.LTD.ŞTİ",
+      "toplam_tutar": 2092.66,
+      "tur": "E-Arşiv Fatura",
+      "aciklama": "Taze bonfile alımı",
+      "alternatifler": {
+        "sirket_adi": ["SENGONUL TAVUKCULUK", "Şengönül Tavukçuluk"]
+      }
+    },
+
+    "efatura-06.jpg": {
+      "kategori": "e-fatura",
+      "not": "IGDAS dogalgaz faturasi (2002, eski TL). Nokta vurusu matris baski — zor OCR. Tutar 45.750.000 TL, belgede binlik ayirici VIRGUL: '45,750,000'. Fatura Tarihi 26/02/2002; Ilk/Son Odeme tarihleri dikkat dagitici.",
+      "tarih": "2002-02-26",
+      "fatura_no": "30613858",
+      "sirket_adi": "İGDAŞ",
+      "toplam_tutar": 45750000,
+      "tur": "Abonelik Faturası",
+      "aciklama": "Doğalgaz tüketim bedeli",
+      "alternatifler": {
+        "fatura_no": ["A112079", "A 112079", "112079"],
+        "sirket_adi": ["IGDAS", "İstanbul Gaz Dağıtım Sanayi ve Ticaret A.Ş.", "Istanbul Gaz Dagitim"],
+        "tur": ["Fatura"]
+      }
+    },
+
+    "efatura-07.jpg": {
+      "kategori": "e-fatura",
+      "not": "ISKI su faturasi. FATURA NO 1000000001, FATURA TARIHI 22.08.2013. Uzerinde 'srcloji.blogspot.com' filigrani var — sirket adi sanilmamali. Odenecek Tutar 34 TL (kurussuz).",
+      "tarih": "2013-08-22",
+      "fatura_no": "1000000001",
+      "sirket_adi": "İSKİ",
+      "toplam_tutar": 34.0,
+      "tur": "Abonelik Faturası",
+      "aciklama": "Su tüketim bedeli",
+      "alternatifler": {
+        "sirket_adi": ["ISKI", "İstanbul Su ve Kanalizasyon İdaresi", "Istanbul Su ve Kanalizasyon Idaresi Genel Mudurlugu"],
+        "tur": ["Fatura"]
+      }
+    },
+
+    "efatura-08.jpg": {
+      "kategori": "e-fatura",
+      "not": "Elektrik faturasi, ust kismi kesik ve musteri bilgileri karartilmis: SATICI FIRMA ADI BELGEDE YOK — model isim yazarsa halusinasyon. Fatura Seri No BBA2021000101760, Fatura Tarihi 31-03-2021, Fatura Tutari 141700,51.",
+      "tarih": "2021-03-31",
+      "fatura_no": "BBA2021000101760",
+      "sirket_adi": null,
+      "toplam_tutar": 141700.51,
+      "tur": "Abonelik Faturası",
+      "aciklama": "Elektrik tüketim bedeli",
+      "alternatifler": {
+        "tur": ["Fatura"]
+      }
+    }
+  }
+}
