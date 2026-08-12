@@ -15,6 +15,10 @@
   ],
   "author": "Barış Yeşildağ",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barisyesil/invoice-llm-benchmark.git"
+  },
   "scripts": {
     "dev": "next dev -p 4123",
     "build": "next build",

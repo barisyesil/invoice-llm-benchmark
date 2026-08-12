@@ -117,7 +117,7 @@ Açıklama          —       —      —        —   puanlanmaz
 Gereksinim: **Node.js 20.9+** (başka hiçbir şey yok — veritabanı, Docker, SDK, derleme adımı yok).
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/barisyesil/invoice-llm-benchmark.git
 cd invoice-llm-benchmark
 npm install
 ```
