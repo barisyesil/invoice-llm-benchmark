@@ -1,0 +1,39 @@
+{
+  "name": "invoice-llm-benchmark",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vision LLM'lerin Turkce fatura/fis/makbuz belgelerinden veri cikarma dogrulugunu, hizini ve maliyetini karsilastiran saglayici-bagimsiz test laboratuvari",
+  "keywords": [
+    "llm",
+    "vision",
+    "ocr",
+    "invoice",
+    "benchmark",
+    "document-ai",
+    "nextjs",
+    "structured-output"
+  ],
+  "author": "Barış Yeşildağ",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev -p 4123",
+    "build": "next build",
+    "start": "next start -p 4123",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run build"
+  },
+  "dependencies": {
+    "next": "^16.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

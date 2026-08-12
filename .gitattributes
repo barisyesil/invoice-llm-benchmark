@@ -1,0 +1,11 @@
+# Depoda satir sonlari daima LF tutulur; Windows'ta calisma kopyasi CRLF olabilir.
+# Boylece ekip farkli isletim sistemlerinde calissa da diff'ler temiz kalir.
+* text=auto eol=lf
+
+# Ikili dosyalar donusturulmez.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary

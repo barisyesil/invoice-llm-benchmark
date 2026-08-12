@@ -1,0 +1,31 @@
+# --- bagimliliklar / derleme ciktilari ---
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- ORTAM DEGISKENLERI: API anahtarlari asla depoya girmemeli ---
+.env
+.env.local
+.env*.local
+
+# --- editor / isletim sistemi ---
+.claude/
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- loglar ---
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# --- yerel deneme dosyalari (rapor ciktilari, gecici gorseller) ---
+/scratch/
+*.local.csv
+*.local.json
