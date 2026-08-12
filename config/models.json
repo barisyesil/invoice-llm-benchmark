@@ -1,0 +1,231 @@
+{
+  "_readme": [
+    "Yeni model eklemek icin 'models' dizisine bir kayit eklemeniz yeterlidir; kod degisikligi gerekmez.",
+    "Yeni SAGLAYICI eklemek icin: OpenAI-uyumlu bir API ise sadece 'providers' altina kind:'openai' ile baseUrl+apiKeyEnv girin.",
+    "Fiyatlar USD / 1M token cinsindendir ve DEGISEBILIR — kullanmadan once saglayicinin fiyat sayfasindan dogrulayin.",
+    "Anthropic fiyatlari 2026-06 itibariyle dogrulandi. Diger saglayicilarin fiyatlarini kendiniz teyit edin.",
+    "'rpm' = dakikadaki istek limiti. Toplu testte istekler arasi onerilen bekleme suresi bundan hesaplanir (60/rpm sn).",
+    "Buradaki rpm degerleri UCRETSIZ (free tier) limitlerine gore tahminidir — kendi hesabinizin limitiyle degistirin.",
+    "rpm: 0 -> limit yok (yerel modeller). Arayuzden bekleme suresini her zaman elle degistirebilirsiniz.",
+    "temperature: OpenAI-uyumlu ve Gemini adaptorleri 0 gonderir. Anthropic adaptoru gondermez (dusunme modu aciksa API kabul etmiyor);",
+    "istersen ilgili modele 'extra': { 'temperature': 0 } ekleyerek sabitleyebilirsin. Ayrinti: REHBER.md bolum 8.",
+    "Olcum alacaksan model surumunu sabitle (ornek: gpt-4o-mini-2024-07-18); alias surumler zamanla degisir ve eski raporlarla kiyas bozulur."
+  ],
+
+  "defaults": {
+    "maxTokens": 1024,
+    "timeoutMs": 120000,
+    "currency": "USD",
+    "retry": {
+      "maxAttempts": 3,
+      "baseDelayMs": 1200,
+      "retryOnStatus": [408, 409, 425, 429, 500, 502, 503, 504]
+    },
+    "batchDelayMs": 250
+  },
+
+  "providers": {
+    "openai": {
+      "label": "OpenAI",
+      "kind": "openai",
+      "baseUrl": "https://api.openai.com/v1",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "pricingUrl": "https://openai.com/api/pricing/"
+    },
+    "anthropic": {
+      "label": "Anthropic",
+      "kind": "anthropic",
+      "baseUrl": "https://api.anthropic.com/v1",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "headers": { "anthropic-version": "2023-06-01" },
+      "pricingUrl": "https://platform.claude.com/docs/en/pricing"
+    },
+    "google": {
+      "label": "Google Gemini",
+      "kind": "google",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "apiKeyEnv": "GOOGLE_API_KEY",
+      "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing"
+    },
+    "groq": {
+      "label": "Groq",
+      "kind": "openai",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "apiKeyEnv": "GROQ_API_KEY",
+      "pricingUrl": "https://groq.com/pricing/"
+    },
+    "openrouter": {
+      "label": "OpenRouter",
+      "kind": "openai",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKeyEnv": "OPENROUTER_API_KEY",
+      "headers": { "HTTP-Referer": "http://localhost:4123", "X-Title": "invoice-llm-benchmark" },
+      "pricingUrl": "https://openrouter.ai/models"
+    },
+    "ollama": {
+      "label": "Ollama (yerel)",
+      "kind": "openai",
+      "baseUrl": "http://localhost:11434/v1",
+      "apiKeyEnv": "OLLAMA_API_KEY",
+      "pricingUrl": null
+    }
+  },
+
+  "models": [
+    {
+      "id": "anthropic-haiku-45",
+      "label": "Claude Haiku 4.5",
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "rpm": 50,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 1.0, "outputPer1M": 5.0 },
+      "notes": "Ucuz + hizli. Fis OCR icin ilk denenecek Claude modeli.",
+      "enabled": true
+    },
+    {
+      "id": "anthropic-sonnet-5",
+      "label": "Claude Sonnet 5",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "rpm": 50,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 3.0, "outputPer1M": 15.0 },
+      "extra": { "output_config": { "effort": "low" } },
+      "notes": "Fiyat/performans dengesi. effort=low ile dusunme maliyeti kisildi.",
+      "enabled": true
+    },
+    {
+      "id": "anthropic-opus-5",
+      "label": "Claude Opus 5",
+      "provider": "anthropic",
+      "model": "claude-opus-5",
+      "rpm": 50,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 5.0, "outputPer1M": 25.0 },
+      "extra": { "output_config": { "effort": "low" } },
+      "notes": "Ust sinir referansi. Cok puruzlu/yirtik fislerde dogruluk tavanini olcmek icin.",
+      "enabled": true
+    },
+
+    {
+      "id": "openai-gpt-5-1-mini",
+      "label": "GPT-5.1 mini",
+      "provider": "openai",
+      "model": "gpt-5.1-mini",
+      "rpm": 500,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 0.25, "outputPer1M": 2.0 },
+      "omit": ["temperature"],
+      "tokenParam": "max_completion_tokens",
+      "notes": "Reasoning modeli: temperature kabul etmez, max_completion_tokens kullanir.",
+      "enabled": true
+    },
+    {
+      "id": "openai-gpt-4-1-mini",
+      "label": "GPT-4.1 mini",
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "rpm": 500,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 0.4, "outputPer1M": 1.6 },
+      "notes": "Klasik (non-reasoning) vision modeli, dusuk gecikme.",
+      "enabled": true
+    },
+    {
+      "id": "openai-gpt-4o-mini",
+      "label": "GPT-4o mini",
+      "provider": "openai",
+      "model": "gpt-4o-mini-2024-07-18",
+      "rpm": 500,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 0.15, "outputPer1M": 0.6 },
+      "tokenParam": "max_completion_tokens",
+      "extra": { "seed": 42 },
+      "notes": "En ucuz OpenAI vision secenegi. Reasoning modeli DEGIL: temperature=0 kabul eder ve strict json_schema destekler (2024-07-18 ve sonrasi). Surum sabitlendi + seed verildi ki olcumler tekrarlanabilir olsun. Gorseller detail:high gonderilir (fis/fatura kucuk yazilari icin sart); 4o-mini gorsel tokenlarini yuksek carpanla saydigi icin belge basi giris tokeni yuksek gorunur, bu normaldir.",
+      "enabled": true
+    },
+
+    {
+      "id": "google-gemini-25-flash",
+      "label": "Gemini 2.5 Flash",
+      "provider": "google",
+      "model": "gemini-2.5-flash",
+      "rpm": 10,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 0.3, "outputPer1M": 2.5 },
+      "extra": { "generationConfig": { "thinkingConfig": { "thinkingBudget": 0 } } },
+      "notes": "OCR'da cok guclu ve ucuz. thinkingBudget=0 ile maliyet/gecikme kisildi.",
+      "enabled": true
+    },
+    {
+      "id": "google-gemini-25-flash-lite",
+      "label": "Gemini 2.5 Flash-Lite",
+      "provider": "google",
+      "model": "gemini-2.5-flash-lite",
+      "rpm": 15,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 0.1, "outputPer1M": 0.4 },
+      "extra": { "generationConfig": { "thinkingConfig": { "thinkingBudget": 0 } } },
+      "notes": "Toplu islem icin en dusuk birim maliyet.",
+      "enabled": true
+    },
+    {
+      "id": "google-gemini-25-pro",
+      "label": "Gemini 2.5 Pro",
+      "provider": "google",
+      "model": "gemini-2.5-pro",
+      "rpm": 5,
+      "structuredOutput": "json_schema",
+      "pricing": { "inputPer1M": 1.25, "outputPer1M": 10.0 },
+      "notes": "Zor/egik/golgeli fisler icin Gemini ust segment.",
+      "enabled": true
+    },
+
+    {
+      "id": "groq-gpt-oss-120b",
+      "label": "GPT-OSS 120B",
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "rpm": 1000,
+      "structuredOutput": "json_object",
+      "pricing": { "inputPer1M": 0.15, "outputPer1M": 0.60 },
+      "notes": "Groq'un yeni amiral gemisi. Llama Vision modellerinin resmi alternatifidir.",
+      "enabled": true
+    },
+    {
+      "id": "groq-qwen36-27b",
+      "label": "Qwen 3.6 27B",
+      "provider": "groq",
+      "model": "qwen/qwen3.6-27b",
+      "rpm": 1000,
+      "structuredOutput": "json_object",
+      "pricing": { "inputPer1M": 0.60, "outputPer1M": 3.00 },
+      "notes": "20MB görsel/dosya destekli Qwen modeli.",
+      "enabled": true
+    },
+
+    {
+      "id": "openrouter-qwen-vl",
+      "label": "Qwen2.5-VL 72B (OpenRouter)",
+      "provider": "openrouter",
+      "model": "qwen/qwen2.5-vl-72b-instruct",
+      "rpm": 20,
+      "structuredOutput": "json_object",
+      "pricing": { "inputPer1M": 0.25, "outputPer1M": 0.75 },
+      "notes": "Belge/OCR'a ozel egitilmis acik model. Ornek: OpenRouter uzerinden yeni model deneme sablonu.",
+      "enabled": false
+    },
+    {
+      "id": "ollama-local-vision",
+      "label": "Yerel model (Ollama)",
+      "provider": "ollama",
+      "model": "llama3.2-vision",
+      "rpm": 0,
+      "structuredOutput": "json_object",
+      "pricing": { "inputPer1M": 0.0, "outputPer1M": 0.0 },
+      "notes": "Veri disari cikmasin isteyen senaryolar icin sablon. 'ollama pull llama3.2-vision' gerekir.",
+      "enabled": false
+    }
+  ]
+}
